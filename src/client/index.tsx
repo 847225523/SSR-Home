@@ -1,6 +1,21 @@
-// src/client/index.tsx
-
 import { hydrateRoot } from "react-dom/client";
-import Home from "@/pages/home";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import router from "@/router";
+import { Provider } from "react-redux";
+import { clientStore } from "@/store";
 
-hydrateRoot(document.getElementById("root") as Document | Element, <Home />);
+const Client = (): JSX.Element => {
+  return (
+    <Provider store={clientStore}>
+    <BrowserRouter>
+      <Routes>
+        {router?.map((item, index) => {
+          return <Route {...item} key={index} />;
+        })}
+      </Routes>
+    </BrowserRouter>
+    </Provider>
+  );
+};
+
+hydrateRoot(document.getElementById("root") as Document | Element, <Client />);
